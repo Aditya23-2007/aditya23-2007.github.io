@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Aditya Games</title>
     <style>
         body {
@@ -10,6 +11,7 @@
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: #fff;
             text-align: center;
+            transition: background 0.5s, color 0.5s;
         }
         header {
             background-color: rgba(0,0,0,0.6);
@@ -20,10 +22,6 @@
             margin: 0;
             color: #ffcc00;
             text-shadow: 2px 2px 5px #000;
-        }
-        p {
-            font-size: 1.2em;
-            margin: 10px 0;
         }
         nav {
             margin: 20px 0;
@@ -41,6 +39,42 @@
             background: #ffcc00;
             color: #000;
         }
+        main {
+            padding: 20px;
+        }
+        .projects {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .card {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 10px;
+            width: 250px;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card h3 {
+            color: #ffcc00;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #ff6600;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #ffcc00;
+            color: #000;
+        }
         footer {
             background-color: rgba(0,0,0,0.6);
             padding: 15px;
@@ -48,6 +82,18 @@
             bottom: 0;
             width: 100%;
             font-size: 0.9em;
+        }
+        /* Dark mode */
+        .dark {
+            background: #111;
+            color: #eee;
+        }
+        .dark nav a {
+            background: #444;
+        }
+        .dark nav a:hover {
+            background: #888;
+            color: #fff;
         }
     </style>
 </head>
@@ -65,11 +111,38 @@
     </nav>
 
     <main>
-        <p>Explore my latest game projects, coding experiments, and creative ideas. Stay tuned for updates!</p>
+        <h2>My Projects</h2>
+        <div class="projects" id="projectList">
+            <!-- Cards will be injected here -->
+        </div>
+        <button onclick="toggleTheme()">Toggle Theme</button>
     </main>
 
     <footer>
         &copy; 2026 Aditya Games | Designed by Aditya
     </footer>
+
+    <script>
+        // Sample project data
+        const projects = [
+            { title: "Space Shooter", desc: "A fast-paced arcade game." },
+            { title: "Puzzle Quest", desc: "Solve tricky puzzles and escape." },
+            { title: "Racing Mania", desc: "High-speed racing adventure." }
+        ];
+
+        // Inject project cards dynamically
+        const projectList = document.getElementById("projectList");
+        projects.forEach(p => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `<h3>${p.title}</h3><p>${p.desc}</p>`;
+            projectList.appendChild(card);
+        });
+
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle("dark");
+        }
+    </script>
 </body>
 </html>
