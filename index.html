@@ -4,12 +4,22 @@
   <meta charset="UTF-8">
   <title>Aditya Chougale - Developer Portfolio</title>
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      background: linear-gradient(270deg, #1e3c72, #2a5298, #ff6600);
+      background-size: 600% 600%;
+      animation: gradientShift 20s ease infinite;
       color: #fff;
       transition: background 0.5s, color 0.5s;
+    }
+    @keyframes gradientShift {
+      0% {background-position:0% 50%;}
+      50% {background-position:100% 50%;}
+      100% {background-position:0% 50%;}
     }
     header {
       text-align: center;
@@ -21,21 +31,35 @@
       margin: 0;
       color: #ffcc00;
       text-shadow: 2px 2px 5px #000;
+      animation: fadeInDown 1.5s ease;
     }
     header h2 {
       margin-top: 10px;
       font-weight: normal;
+      animation: fadeInUp 2s ease;
+    }
+    @keyframes fadeInDown {
+      from {opacity:0; transform: translateY(-30px);}
+      to {opacity:1; transform: translateY(0);}
+    }
+    @keyframes fadeInUp {
+      from {opacity:0; transform: translateY(30px);}
+      to {opacity:1; transform: translateY(0);}
     }
     nav {
       text-align: center;
       background: #ff6600;
       padding: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
     nav a {
       color: #fff;
       text-decoration: none;
       margin: 0 15px;
       font-weight: bold;
+      transition: color 0.3s;
     }
     nav a:hover {
       color: #000;
@@ -44,6 +68,13 @@
       padding: 40px 20px;
       max-width: 900px;
       margin: auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     h2 {
       color: #ffcc00;
@@ -59,14 +90,30 @@
       padding: 20px;
       border-radius: 10px;
       flex: 1 1 250px;
-      transition: transform 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
     .card:hover {
-      transform: scale(1.05);
+      transform: scale(1.05) rotateY(3deg);
+      box-shadow: 0 0 20px #ffcc00;
     }
     .card h3 {
       margin-top: 0;
       color: #ffcc00;
+    }
+    .progress {
+      background: #333;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+    .progress div {
+      height: 20px;
+      background: #ff6600;
+      text-align: right;
+      padding-right: 5px;
+      color: #fff;
+      font-size: 12px;
+      width: 0;
     }
     footer {
       text-align: center;
@@ -81,12 +128,29 @@
       border-radius: 5px;
       color: #fff;
       cursor: pointer;
+      transition: all 0.3s;
     }
     button:hover {
       background: #ffcc00;
       color: #000;
+      transform: scale(1.1);
     }
-    /* Dark mode */
+    .social a {
+      margin: 0 10px;
+      color: #ffcc00;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      transition: transform 0.3s;
+    }
+    .social a:hover {
+      transform: scale(1.2) rotate(-5deg);
+    }
+    #clock {
+      font-size: 1.2em;
+      color: #ffcc00;
+      text-shadow: 0 0 10px #ff6600;
+    }
     .dark {
       background: #111;
       color: #eee;
@@ -106,6 +170,12 @@
   <header>
     <h1>Aditya Chougale</h1>
     <h2>Game Developer • App Developer • Computer Science Engineering Student</h2>
+    <div class="social">
+      <a href="https://github.com/Aditya23-2007" target="_blank">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">YouTube</a>
+    </div>
+    <button onclick="downloadResume()">Download Resume</button>
   </header>
 
   <nav>
@@ -120,19 +190,21 @@
   <section id="about">
     <h2>About Me</h2>
     <p>Hi, I'm Aditya Chougale, a Computer Science Engineering student passionate about game development, mobile applications, automation systems, and AI-powered solutions.</p>
-    <p>I enjoy transforming innovative ideas into real-world products, ranging from mobile games and AI applications to smart automation systems. My goal is to create software that solves practical problems while delivering engaging and user-friendly experiences.</p>
+    <p>I enjoy transforming innovative ideas into real-world products, ranging from mobile games and AI applications to smart automation systems.</p>
     <p>Currently, I am focused on mobile game development, AI-powered applications, and enterprise software solutions for educational institutions.</p>
   </section>
 
   <section id="skills">
     <h2>Skills</h2>
-    <div class="skills">
-      <div class="card"><h3>Programming Languages</h3><p>Java, C#, Python, JavaScript, SQL</p></div>
-      <div class="card"><h3>Game Development</h3><p>Unity, Mobile Game Development, Game Mechanics Design, AdMob Integration, UI/UX Design</p></div>
-      <div class="card"><h3>Web Development</h3><p>HTML, CSS, JavaScript, Responsive Web Design</p></div>
-      <div class="card"><h3>Database & Backend</h3><p>Firebase, JSON, SQLite/Room, Data Management</p></div>
-      <div class="card"><h3>Tools & Platforms</h3><p>Android Studio, Unity Editor, GitHub, VS Code, Figma</p></div>
-      <div class="card"><h3>Specialized Areas</h3><p>AI, Deepfake Detection, IoT & Automation, Inventory Systems</p></div>
+    <div class="card">
+      <h3>Java</h3>
+      <div class="progress"><div style="--target-width:85%">85%</div></div>
+      <h3>C#</h3>
+      <div class="progress"><div style="--target-width:80%">80%</div></div>
+      <h3>Python</h3>
+      <div class="progress"><div style="--target-width:75%">75%</div></div>
+      <h3>JavaScript</h3>
+      <div class="progress"><div style="--target-width:70%">70%</div></div>
     </div>
   </section>
 
@@ -161,7 +233,6 @@
   <section id="contact">
     <h2>Contact</h2>
     <p>Email: <a href="mailto:adichougale69@gmail.com">adichougale69@gmail.com</a></p>
-    <p>GitHub: <a href="https://github.com/Aditya23-2007" target="_blank">github.com/Aditya23-2007</a></p>
     <p>Location: Maharashtra, India</p>
     <form onsubmit="return validateForm()">
       <input type="text" id="name" placeholder="Your Name" required><br><br>
@@ -172,44 +243,4 @@
   </section>
 
   <footer>
-    <p>&copy; 2026 Aditya Chougale | Building practical software, innovative games, and intelligent solutions one project at a time.</p>
-    <button onclick="toggleTheme()">Toggle Theme</button>
-  </footer>
-
-  <script>
-    // Project data
-    const projects = [
-      { title: "Infinite Gem Crush", desc: "Mobile puzzle game with AdMob monetization." },
-      { title: "Ghost AI Keyboard", desc: "AI-powered keyboard with smart suggestions." },
-      { title: "Deepfake Detection Research System", desc: "ML-based forensic image verification." },
-      { title: "College Procurement & Inventory System", desc: "Enterprise-level procurement & inventory management." },
-      { title: "Smart Lighting Automation System", desc: "IoT-based voice-controlled lighting automation." }
-    ];
-
-    // Inject project cards
-    const projectList = document.getElementById("projectList");
-    projects.forEach(p => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `<h3>${p.title}</h3><p>${p.desc}</p>`;
-      projectList.appendChild(card);
-    });
-
-    // Theme toggle
-    function toggleTheme() {
-      document.body.classList.toggle("dark");
-    }
-
-    // Contact form validation
-    function validateForm() {
-      const email = document.getElementById("email").value;
-      if (!email.includes("@")) {
-        alert("Please enter a valid email.");
-        return false;
-      }
-      alert("Message sent successfully!");
-      return true;
-    }
-  </script>
-</body>
-</html>
+    <p>&copy; 2026 Aditya Chougale | Building
